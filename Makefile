@@ -2,18 +2,29 @@ REPO_NAME = ara-manufacturing-script
 PROJECT = project
 AWS_PROFILE := default
 
+TMPDIR := $(shell mktemp -d awscli-temp-XXXXXXXX)
+BINDIR := $(HOME)/bin
+INSTALLDIR := $(HOME)/.local/lib/aws-cli
+
+
 .PHONY: setup
-setup:
+setup: 
+	$(TMPDIR)/aws
+	mkdir -p $(BINDIR) $(INSTALLDIR)
+	$(TMPDIR)/aws/install --bin-dir $(BINDIR) --install-dir $(INSTALLDIR)
+	-rm -rf $(TMPDIR)
+
+	$(TMPDIR)/aws
+	$(TMPDIR)/aws/install --bin-dir $(BINDIR) --install-dir $(INSTALLDIR) --update
+	-rm -rf $(TMPDIR)
+	
 	@aws codeartifact login \
 		--tool pip \
-		--repository ara-manufacturing \
 		--domain ara-manufacturing \
 		--domain-owner 693131387182 \
-		--profile ${AWS_PROFILE}
+		--repository ara-manufacturing \
 
-authentication:
-	@echo "AWS Credentials Needed"
-
+.PHONY: build
 package-installer:
 	&& cd /ara-manufacturing-script \
 	&& pip install ara-manufacturing-script \
