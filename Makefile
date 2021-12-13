@@ -1,22 +1,13 @@
-REPO_NAME = ara-manufacturing-script
-PROJECT = project
-AWS_PROFILE := default
+.DEFAULT: help
+help:
+	@echo "make setup"
+	@echo "prepare production environment"
 
-TMPDIR := $(shell mktemp -d awscli-temp-XXXXXXXX)
-BINDIR := $(HOME)/bin
-INSTALLDIR := $(HOME)/.local/lib/aws-cli
-
-
-.PHONY: setup
-setup: 
-	$(TMPDIR)/aws
-	mkdir -p $(BINDIR) $(INSTALLDIR)
-	$(TMPDIR)/aws/install --bin-dir $(BINDIR) --install-dir $(INSTALLDIR)
-	-rm -rf $(TMPDIR)
-
-	$(TMPDIR)/aws
-	$(TMPDIR)/aws/install --bin-dir $(BINDIR) --install-dir $(INSTALLDIR) --update
-	-rm -rf $(TMPDIR)
+.PHONY: setup build
+setup:
+	@echo "running setup"
+	sudo apt-get -y install python3.5 python3-pip
+	python3 -m pip install virtualenv
 	
 	@aws codeartifact login \
 		--tool pip \
@@ -24,7 +15,5 @@ setup:
 		--domain-owner 693131387182 \
 		--repository ara-manufacturing \
 
-.PHONY: build
-package-installer:
-	&& cd /ara-manufacturing-script \
-	&& pip install ara-manufacturing-script \
+	@pip install ara-manufacturing
+	@echo "setup complete"
