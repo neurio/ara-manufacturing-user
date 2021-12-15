@@ -1,5 +1,5 @@
 # Ara Manufacturing User
-Repository to be used by manufacturer for simple setup for manufacturing ara devices
+Repository to be used by manufacturer for simple setup
 
 ## Using This Repository
 1. Clone repo to local machine folder
