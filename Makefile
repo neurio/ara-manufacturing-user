@@ -2,8 +2,10 @@ DESTDIR=/tmp/myinst/
 
 .DEFAULT: help
 help:
-	@echo "make setup"
-	@echo "prepare production environment"
+	@echo "make setup - prepare production environment"
+	@echo "make install - install nrf-jlink programming command line tools. This will also run setup as prerequisite."
+	@echo "make clean - clean up environment and remove all installed packages"
+
 
 .PHONY: setup
 setup:
