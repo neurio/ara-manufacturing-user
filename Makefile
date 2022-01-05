@@ -1,5 +1,3 @@
-DESTDIR=/tmp/myinst/
-
 .DEFAULT: help
 help:
 	@echo "make setup - prepare production environment"
