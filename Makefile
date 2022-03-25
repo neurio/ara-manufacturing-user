@@ -7,11 +7,9 @@ help:
 
 .PHONY: setup
 setup:
-	@echo "running setup"
-	sudo apt-get -y install python3.8 python3-pip
-	python3 -m pip install virtualenv
+	@echo "[MAKE] Running Setup..."
+	sudo apt-get -y install python3.8 python3-pip unzip
 	sudo apt install wget
-	sudo apt-get install unzip
 
 	wget -N --timestamping https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 	unzip -n awscli-exe-linux-x86_64.zip
@@ -19,8 +17,9 @@ setup:
 	
 	wget -N --timestamping https://www.nordicsemi.com/-/media/Software-and-other-downloads/Desktop-software/nRF-command-line-tools/sw/Versions-10-x-x/10-15-1/nrf-command-line-tools-10.15.1_Linux-amd64.zip
 
-	@aws configure --profile ara_production_user
+	aws configure get aws_access_key_id --profile ara_production_user >> /dev/null || aws configure --profile ara_production_user
 
+	@echo "[MAKE] Setup Complete!"
 
 .PHONY: authenticate_pip
 authenticate_pip:
@@ -33,7 +32,7 @@ authenticate_pip:
 
 .PHONY: install
 install: setup authenticate_pip
-	@pip install ara-manufacturing
+	@pip install --upgrade ara-manufacturing
 	sudo mkdir -p ./nrf-command-line-tools-10-15-1-linux-amd64/
 	sudo unzip nrf-command-line-tools-10.15.1_Linux-amd64.zip -d ./nrf-command-line-tools-10-15-1-linux-amd64/
 	sudo dpkg -i nrf-command-line-tools-10-15-1-linux-amd64/JLink_Linux_V758b_x86_64.deb
@@ -45,7 +44,7 @@ install: setup authenticate_pip
 clean:
 	sudo rm -rf nrf-command-line-tools-10-15-1-linux-amd64/
 	sudo rm -f nrf-command-line-tools-10.15.1_Linux-amd64.zip
-	sudo apt-get purge virtualenv wget unzip -y
+	sudo apt-get purge wget unzip -y
 	sudo rm awscliv2.zip
 	sudo rm -rf aws
 	sudo rm -rf /usr/local/aws-cli
