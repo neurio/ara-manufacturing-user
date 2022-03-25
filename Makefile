@@ -45,7 +45,7 @@ clean:
 	sudo rm -rf nrf-command-line-tools-10-15-1-linux-amd64/
 	sudo rm -f nrf-command-line-tools-10.15.1_Linux-amd64.zip
 	sudo apt-get purge wget unzip -y
-	sudo rm awscliv2.zip
+	sudo rm awscli-exe-linux-x86_64.zip
 	sudo rm -rf aws
 	sudo rm -rf /usr/local/aws-cli
 	sudo rm /usr/local/bin/aws
