@@ -13,24 +13,26 @@ setup:
 	sudo apt install wget
 	sudo apt-get install unzip
 
-	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-	unzip awscliv2.zip
-	sudo ./aws/install
+	wget -N --timestamping https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+	unzip -n awscli-exe-linux-x86_64.zip
+	sudo ./aws/install --update
 	
-	wget https://www.nordicsemi.com/-/media/Software-and-other-downloads/Desktop-software/nRF-command-line-tools/sw/Versions-10-x-x/10-15-1/nrf-command-line-tools-10.15.1_Linux-amd64.zip
+	wget -N --timestamping https://www.nordicsemi.com/-/media/Software-and-other-downloads/Desktop-software/nRF-command-line-tools/sw/Versions-10-x-x/10-15-1/nrf-command-line-tools-10.15.1_Linux-amd64.zip
 
-	@aws configure
+	@aws configure --profile ara_production_user
 
+
+.PHONY: authenticate_pip
+authenticate_pip:
 	@aws codeartifact login \
 		--tool pip \
 		--domain ara-manufacturing \
 		--domain-owner 693131387182 \
 		--repository ara-manufacturing \
-
-	@echo "setup complete"
+		--profile ara_production_user
 
 .PHONY: install
-install: setup
+install: setup authenticate_pip
 	@pip install ara-manufacturing
 	sudo mkdir -p ./nrf-command-line-tools-10-15-1-linux-amd64/
 	sudo unzip nrf-command-line-tools-10.15.1_Linux-amd64.zip -d ./nrf-command-line-tools-10-15-1-linux-amd64/
@@ -43,7 +45,7 @@ install: setup
 clean:
 	sudo rm -rf nrf-command-line-tools-10-15-1-linux-amd64/
 	sudo rm -f nrf-command-line-tools-10.15.1_Linux-amd64.zip
-	sudo apt-get purge virtualenv wget unzip
+	sudo apt-get purge virtualenv wget unzip -y
 	sudo rm awscliv2.zip
 	sudo rm -rf aws
 	sudo rm -rf /usr/local/aws-cli
