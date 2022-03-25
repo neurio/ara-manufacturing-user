@@ -34,7 +34,7 @@ authenticate_pip:
 install: setup authenticate_pip
 	@pip install --upgrade ara-manufacturing
 	sudo mkdir -p ./nrf-command-line-tools-10-15-1-linux-amd64/
-	sudo unzip nrf-command-line-tools-10.15.1_Linux-amd64.zip -d ./nrf-command-line-tools-10-15-1-linux-amd64/
+	sudo unzip -n nrf-command-line-tools-10.15.1_Linux-amd64.zip -d ./nrf-command-line-tools-10-15-1-linux-amd64/
 	sudo dpkg -i nrf-command-line-tools-10-15-1-linux-amd64/JLink_Linux_V758b_x86_64.deb
 	sudo apt-get install -f
 	sudo dpkg -i nrf-command-line-tools-10-15-1-linux-amd64/nrf-command-line-tools_10.15.1_amd64.deb
