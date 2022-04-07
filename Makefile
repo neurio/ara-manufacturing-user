@@ -40,6 +40,10 @@ install: setup authenticate_pip
 	sudo dpkg -i nrf-command-line-tools-10-15-1-linux-amd64/nrf-command-line-tools_10.15.1_amd64.deb
 	sudo apt-get install -f
 
+.PHONY: upgrade
+install: authenticate_pip
+	@pip install --upgrade ara-manufacturing
+
 .PHONY: clean
 clean:
 	sudo rm -rf nrf-command-line-tools-10-15-1-linux-amd64/
