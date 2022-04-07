@@ -2,6 +2,7 @@
 help:
 	@echo "make setup - prepare production environment"
 	@echo "make install - install nrf-jlink programming command line tools. This will also run setup as prerequisite."
+	@echo "make upgrade - Upgrade the ara-manufacturing package to the latest version."
 	@echo "make clean - clean up environment and remove all installed packages"
 
 
