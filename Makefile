@@ -42,7 +42,7 @@ install: setup authenticate_pip
 	sudo apt-get install -f
 
 .PHONY: upgrade
-install: authenticate_pip
+upgrade: authenticate_pip
 	@pip install --upgrade ara-manufacturing
 
 .PHONY: clean
