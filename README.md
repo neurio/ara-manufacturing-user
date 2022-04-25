@@ -6,6 +6,7 @@ Repository to be used by manufacturer for simple setup
 2. Run `make install`
 3. When prompted, enter aws access key ID and secret access key
 4. When prompted for region enter 'us-west-2', when prompted for output enter 'json'
+5. After the installation step is complete, reboot the device using `sudo reboot`to continue.
 
 ## Script Entry Points
 The following commands will display usage information for their respective scripts.

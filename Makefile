@@ -20,6 +20,7 @@ setup:
 
 	aws configure get aws_access_key_id --profile ara_production_user >> /dev/null || aws configure --profile ara_production_user
 
+	sudo adduser $USER dialout
 	@echo "[MAKE] Setup Complete!"
 
 .PHONY: authenticate_pip
