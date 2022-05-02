@@ -20,7 +20,7 @@ setup:
 
 	aws configure get aws_access_key_id --profile ara_production_user >> /dev/null || aws configure --profile ara_production_user
 
-	sudo adduser $USER dialout
+	sudo adduser $$USER dialout
 	@echo "[MAKE] Setup Complete!"
 
 .PHONY: authenticate_pip
@@ -41,6 +41,7 @@ install: setup authenticate_pip
 	sudo apt-get install -f
 	sudo dpkg -i nrf-command-line-tools-10-15-1-linux-amd64/nrf-command-line-tools_10.15.1_amd64.deb
 	sudo apt-get install -f
+	@echo "[MAKE] Install complete! Reboot system to finish setup."
 
 .PHONY: upgrade
 upgrade: authenticate_pip
